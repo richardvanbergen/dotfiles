@@ -42,6 +42,10 @@ if command -v starship &>/dev/null; then
   eval "$(starship init zsh)"
 fi
 
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
 alias ls="eza --group-directories-first --icons"
 alias ll="eza --long --all --group-directories-first --icons"
 alias tree="eza --tree --level=2"
