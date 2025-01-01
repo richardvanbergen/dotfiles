@@ -49,4 +49,8 @@ fi
 alias ls="eza --group-directories-first --icons"
 alias ll="eza --long --all --group-directories-first --icons"
 alias tree="eza --tree --level=2"
+alias cd="z"
 
+export NVM_DIR="$HOME/.nvm"
+    [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" # This loads nvm
+    [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion

@@ -14,7 +14,7 @@ fi
 brew install jesseduffield/lazygit/lazygit
 
 # Define an array of programs to ensure are installed
-PROGRAMS=("1password-cli" "eza" "nvm" "starship" "stow" "lazygit" "zoxide")
+PROGRAMS=("1password-cli" "eza" "nvm" "starship" "stow" "lazygit" "zoxide" "dotnet-sdk" "docker")
 
 # Loop through the programs array
 for program in "${PROGRAMS[@]}"; do
@@ -28,3 +28,22 @@ for program in "${PROGRAMS[@]}"; do
     fi
   fi
 done
+
+#!/bin/bash
+
+# Prompt the user
+read "response?Do you want to enable Touch ID for sudo? (y/n): "
+
+# Check if the user input is 'y' or 'Y'
+if [[ "$response" == "y" || "$response" == "Y" ]]; then
+    # Check if the file exists
+    if [ -f /etc/pam.d/sudo_local ]; then
+        echo "Overwriting /etc/pam.d/sudo_local..."
+        echo "auth       sufficient     pam_tid.so" | sudo tee /etc/pam.d/sudo_local > /dev/null
+        echo "Touch ID for sudo has been enabled."
+    else
+        echo "/etc/pam.d/sudo_local does not exist. Creating it..."
+        echo "auth       sufficient     pam_tid.so" | sudo tee /etc/pam.d/sudo_local > /dev/null
+        echo "Touch ID for sudo has been enabled."
+    fi
+fi
