@@ -19,14 +19,27 @@ fi
 
 # Read each line from the secrets file
 while IFS='=' read -r var_name secret_url; do
-  # Trim whitespace (if any)
+  # Skip lines that start with # (comments)
+  [[ $var_name =~ ^[[:space:]]*# ]] && continue
+
+  # Remove inline comments (everything after #)
+  line="$var_name=$secret_url"
+  line=${line%%#*}
+
+  # Split the cleaned line into var_name and secret_url
+  IFS='=' read -r var_name secret_url <<< "$line"
+
+  # Trim whitespace
   var_name=$(echo "$var_name" | xargs)
   secret_url=$(echo "$secret_url" | xargs)
+
+  # Skip empty lines
+  [[ -z "$var_name" || -z "$secret_url" ]] && continue
 
   # Check if the variable is already set in the environment
   if [[ -z "${(P)var_name}" ]]; then
     # Resolve the secret URL and export it
-    secret_value=$(op read "$secret_url" | tr -d '\n') # Remove newlines
+    secret_value=$(op read "$secret_url" | tr -d '\n')
 
     # Check if the secret was retrieved successfully
     if [[ $? -eq 0 ]]; then
