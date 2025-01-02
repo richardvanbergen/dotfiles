@@ -14,7 +14,7 @@ fi
 brew install jesseduffield/lazygit/lazygit
 
 # Define an array of programs to ensure are installed
-PROGRAMS=("1password-cli" "eza" "nvm" "starship" "stow" "lazygit" "zoxide" "dotnet-sdk" "docker" "gh" "ripgrep" "fd")
+PROGRAMS=("1password-cli" "eza" "nvm" "starship" "stow" "lazygit" "zoxide" "dotnet-sdk" "docker" "gh" "ripgrep" "fd" "raycast" "go")
 
 # Loop through the programs array
 for program in "${PROGRAMS[@]}"; do
